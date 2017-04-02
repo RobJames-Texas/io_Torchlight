@@ -1,3 +1,6 @@
+from OgrePosition import OgrePosition
+from OgreRotation import OgreRotation
+
 class OgreBone(object):
     """
     <bone id="42" name="root">
@@ -12,4 +15,10 @@ class OgreBone(object):
         self.Name = name
         self.Position = position
         self.Rotation = Rotation
+
+    def __init__(self, xml):
+        self.Id = int(xml.get('id'))
+        self.Name = str(xml.get('name'))
+        self.Position = OgrePosition(xml.find('position'))
+        self.Rotation = OgreRotation(xml.find('rotation'))
 

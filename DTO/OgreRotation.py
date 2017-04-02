@@ -1,3 +1,5 @@
+from OgreAxis import OgreAxis
+
 class OgreRotation(object):
     """
     <rotation angle="3.141593">
@@ -8,3 +10,7 @@ class OgreRotation(object):
     def __init__(self, angle, axis):
         self.Angle = angle
         self.Axis = axis
+
+    def __init__(self, xml):
+        self.Angle = float(xml.get('angle'))
+        self.Axis = OgreAxis(xml.find('axis'))

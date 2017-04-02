@@ -1,3 +1,5 @@
+from xml.dom import minidom
+
 class OgreAxis(object):
 
     """
@@ -8,3 +10,8 @@ class OgreAxis(object):
         self.X = x
         self.Y = y
         self.Z = z
+
+    def __init__(self, xml):
+        self.X = float(xml.get('x'))
+        self.Y = float(xml.get('y'))
+        self.Z = float(xml.get('z'))
