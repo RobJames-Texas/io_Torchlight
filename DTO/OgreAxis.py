@@ -1,5 +1,3 @@
-from xml.dom import minidom
-
 class OgreAxis(object):
 
     """
