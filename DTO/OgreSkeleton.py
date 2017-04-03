@@ -18,6 +18,7 @@ class OgreSkeleton(object):
     def __init__(self, bones, boneHierarchy):
         self.Bones = bones
         self.BoneHierarchy = boneHierarchy
+        self.__BuildDictionaries()
 
     def __init__(self, xml):
         #print 'OgreSkeleton init from xml\n'
@@ -29,3 +30,15 @@ class OgreSkeleton(object):
         
         for boneParent in xml.find('bonehierarchy').findall('boneparent'):
             self.BoneHierarchy.append(OgreBoneParent(boneParent))
+
+        self.__BuildDictionaries()
+
+    def __BuildDictionaries(self):
+        self.BoneDictionary = {}
+        self.BoneHierarchyDictionary = {}
+
+        for bone in self.Bones:
+            self.BoneDictionary[bone.Name] = bone
+
+        for boneParent in self.BoneHierarchy:
+            self.BoneHierarchyDictionary[boneParent.Bone] = boneParent
