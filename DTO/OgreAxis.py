@@ -9,7 +9,7 @@ class OgreAxis(object):
         self.Y = y
         self.Z = z
 
-    def __init__(self, xml):
-        self.X = float(xml.get('x'))
-        self.Y = float(xml.get('y'))
-        self.Z = float(xml.get('z'))
+def OgreAxisFromXml(xml):
+    x = float(xml.get('x'))
+    y = float(xml.get('y'))
+    z = float(xml.get('z'))

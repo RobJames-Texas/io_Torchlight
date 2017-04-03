@@ -1,1 +1,2 @@
-python -m unittest discover -p "*Test.py"
+CLS
+python -m unittest discover -p "*Tests.py"

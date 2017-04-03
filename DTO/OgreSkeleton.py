@@ -1,5 +1,5 @@
-from OgreBone import OgreBone
-from OgreBoneParent import OgreBoneParent
+from OgreBone import OgreBoneFromXml
+from OgreBoneParent import OgreBoneParentFromXml
 
 class OgreSkeleton(object):
     """
@@ -20,19 +20,6 @@ class OgreSkeleton(object):
         self.BoneHierarchy = boneHierarchy
         self.__BuildDictionaries()
 
-    def __init__(self, xml):
-        #print 'OgreSkeleton init from xml\n'
-        self.Bones = []
-        self.BoneHierarchy = []
-
-        for bone in xml.find('bones').findall('bone'):
-            self.Bones.append(OgreBone(bone))
-        
-        for boneParent in xml.find('bonehierarchy').findall('boneparent'):
-            self.BoneHierarchy.append(OgreBoneParent(boneParent))
-
-        self.__BuildDictionaries()
-
     def __BuildDictionaries(self):
         self.BoneDictionary = {}
         self.BoneHierarchyDictionary = {}
@@ -42,3 +29,16 @@ class OgreSkeleton(object):
 
         for boneParent in self.BoneHierarchy:
             self.BoneHierarchyDictionary[boneParent.Bone] = boneParent
+
+def OgreSkeletonFromXml(xml):
+    #print 'OgreSkeleton init from xml\n'
+    bones = []
+    boneHierarchy = []
+
+    for bone in xml.find('bones').findall('bone'):
+        bones.append(OgreBoneFromXml(bone))
+    
+    for boneParent in xml.find('bonehierarchy').findall('boneparent'):
+        boneHierarchy.append(OgreBoneParentFromXml(boneParent))
+
+    return OgreSkeleton(bones, boneHierarchy)
