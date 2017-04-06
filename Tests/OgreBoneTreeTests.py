@@ -1,20 +1,17 @@
 import unittest
 import xml.etree.ElementTree as ET
-import sys
-import os
-sys.path.append(os.path.abspath("../DTO"))
-sys.path.append(os.path.abspath("../Providers"))
-from OgreSkeleton import OgreSkeletonFromXml
-from OgreBoneTreeProvider import OgreBoneTreeProvider
+from Components import OgreBoneTreeProvider
+from DTO import OgreSkeleton
 
 class OgreBoneTreeTests(unittest.TestCase):
     def setUp(self):
-        xml = ET.parse('Vanquisher.skeleton.xml')
+        xml = ET.parse('Tests\Vanquisher.skeleton.xml')
         self.XmlRoot = xml.getroot()
 
     def test_CanCreate(self):
-        ogreSkeleton = OgreSkeletonFromXml(self.XmlRoot)
-        tree = OgreBoneTreeProvider(ogreSkeleton).Fetch()
+        ogreSkeleton = OgreSkeleton.OgreSkeletonFromXml(self.XmlRoot)
+        provider = OgreBoneTreeProvider.OgreBoneTreeProvider(ogreSkeleton)
+        tree = provider.Fetch()
 
         self.assertEqual('root', tree.OgreBone.Name, 'first bone should be root')
         self.assertNotEqual(0, len(tree.Children), 'root bone should have children.')

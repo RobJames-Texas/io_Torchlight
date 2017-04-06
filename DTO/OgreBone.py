@@ -1,5 +1,5 @@
-from OgrePosition import OgrePositionFromXml
-from OgreRotation import OgreRotationFromXml
+from .OgrePosition import OgrePositionFromXml
+from .OgreRotation import OgreRotationFromXml
 
 class OgreBone(object):
     """

@@ -1,8 +1,4 @@
-import sys
-import os
-sys.path.append(os.path.abspath("../DTO"))
-from OgreBoneTree import OgreBoneTree
-
+from DTO import OgreBoneTree
 
 class OgreBoneTreeProvider:
 
@@ -18,13 +14,13 @@ class OgreBoneTreeProvider:
         self.__InverseHierarchy()
 
     def Fetch(self):
-        return OgreBoneTree(self.OgreSkeleton.BoneDictionary[self.RootBoneName], self.__FetchChildrenRecursively(self.RootBoneName))
+        return OgreBoneTree.OgreBoneTree(self.OgreSkeleton.BoneDictionary[self.RootBoneName], self.__FetchChildrenRecursively(self.RootBoneName))
 
     def __FetchChildrenRecursively(self, branchName):
         children = []
         if branchName in self.InverseHierarchy.keys():
             for boneName in self.InverseHierarchy[branchName]:
-                children.append(OgreBoneTree(self.OgreSkeleton.BoneDictionary[boneName], self.__FetchChildrenRecursively(boneName)))
+                children.append(OgreBoneTree.OgreBoneTree(self.OgreSkeleton.BoneDictionary[boneName], self.__FetchChildrenRecursively(boneName)))
 
         return children
 

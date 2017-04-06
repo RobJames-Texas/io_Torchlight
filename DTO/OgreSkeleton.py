@@ -1,5 +1,5 @@
-from OgreBone import OgreBoneFromXml
-from OgreBoneParent import OgreBoneParentFromXml
+from . import OgreBone
+from . import OgreBoneParent
 
 class OgreSkeleton(object):
     """
@@ -36,9 +36,9 @@ def OgreSkeletonFromXml(xml):
     boneHierarchy = []
 
     for bone in xml.find('bones').findall('bone'):
-        bones.append(OgreBoneFromXml(bone))
+        bones.append(OgreBone.OgreBoneFromXml(bone))
     
     for boneParent in xml.find('bonehierarchy').findall('boneparent'):
-        boneHierarchy.append(OgreBoneParentFromXml(boneParent))
+        boneHierarchy.append(OgreBoneParent.OgreBoneParentFromXml(boneParent))
 
     return OgreSkeleton(bones, boneHierarchy)

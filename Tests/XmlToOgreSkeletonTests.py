@@ -1,14 +1,11 @@
 import unittest
 import xml.etree.ElementTree as ET
-import sys
-import os
-sys.path.append(os.path.abspath("../DTO"))
-from OgreSkeleton import OgreSkeletonFromXml
+from DTO.OgreSkeleton import OgreSkeletonFromXml
 
 class XmlToOgreSkeletonTests(unittest.TestCase):
 
     def test_CanFill(self):
-        tree = ET.parse('Vanquisher.skeleton.xml')
+        tree = ET.parse('Tests\Vanquisher.skeleton.xml')
         root = tree.getroot()
 
         ogreSkeleton = OgreSkeletonFromXml(root)
