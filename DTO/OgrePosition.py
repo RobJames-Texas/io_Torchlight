@@ -9,10 +9,11 @@ class OgrePosition(object):
         self.Y = y
         self.Z = z
 
+
 def OgrePositionFromXml(xml):
     x = float(xml.get('x'))
     y = float(xml.get('y'))
     z = float(xml.get('z'))
-    
+
     return OgrePosition(x, y, z)
 

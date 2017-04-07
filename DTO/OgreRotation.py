@@ -1,4 +1,5 @@
-from . import OgreAxis
+from .OgreAxis import OgreAxisFromXml
+
 
 class OgreRotation(object):
     """
@@ -11,8 +12,9 @@ class OgreRotation(object):
         self.Angle = angle
         self.Axis = axis
 
+
 def OgreRotationFromXml(xml):
     angle = float(xml.get('angle'))
-    axis = OgreAxis.OgreAxisFromXml(xml.find('axis'))
+    axis = OgreAxisFromXml(xml.find('axis'))
 
     return OgreRotation(angle, axis)

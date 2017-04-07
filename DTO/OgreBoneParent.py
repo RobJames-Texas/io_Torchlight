@@ -7,6 +7,7 @@ class OgreBoneParent(object):
         self.Bone = bone
         self.Parent = parent
 
+
 def OgreBoneParentFromXml(xml):
     bone = str(xml.get('bone'))
     parent = str(xml.get('parent'))

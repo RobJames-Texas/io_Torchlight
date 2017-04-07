@@ -1,7 +1,8 @@
 import unittest
 import xml.etree.ElementTree as ET
-from Components import OgreBoneTreeProvider
-from DTO import OgreSkeleton
+from Components.OgreBoneTreeProvider import OgreBoneTreeProvider
+from DTO.OgreSkeleton import OgreSkeletonFromXml
+
 
 class OgreBoneTreeTests(unittest.TestCase):
     def setUp(self):
@@ -9,13 +10,19 @@ class OgreBoneTreeTests(unittest.TestCase):
         self.XmlRoot = xml.getroot()
 
     def test_CanCreate(self):
-        ogreSkeleton = OgreSkeleton.OgreSkeletonFromXml(self.XmlRoot)
-        provider = OgreBoneTreeProvider.OgreBoneTreeProvider(ogreSkeleton)
+        ogreSkeleton = OgreSkeletonFromXml(self.XmlRoot)
+        provider = OgreBoneTreeProvider(ogreSkeleton)
         tree = provider.Fetch()
 
-        self.assertEqual('root', tree.OgreBone.Name, 'first bone should be root')
-        self.assertNotEqual(0, len(tree.Children), 'root bone should have children.')
-        self.assertEqual('Bip01', tree.Children[0].OgreBone.Name)
+        self.assertEqual(
+            'root', tree.OgreBone.Name,
+            'first bone should be root')
+        self.assertNotEqual(
+            0, len(tree.Children),
+            'root bone should have children.')
+        self.assertEqual(
+            'Bip01',
+            tree.Children[0].OgreBone.Name)
 
         print('\nPASS: OgreBoneTree.Create')
 
