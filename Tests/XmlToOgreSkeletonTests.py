@@ -1,12 +1,14 @@
 import unittest
 import xml.etree.ElementTree as ET
-from DTO.OgreSkeleton import OgreSkeletonFromXml
+from io_Torchlight.DTO.OgreSkeleton import OgreSkeletonFromXml
 
 
 class XmlToOgreSkeletonTests(unittest.TestCase):
 
     def test_CanFill(self):
-        tree = ET.parse('Tests\Vanquisher.skeleton.xml')
+        testFile = 'io_Torchlight\Tests\Vanquisher.skeleton.xml'
+
+        tree = ET.parse(testFile)
         root = tree.getroot()
 
         ogreSkeleton = OgreSkeletonFromXml(root)

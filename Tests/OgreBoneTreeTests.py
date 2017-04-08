@@ -1,12 +1,13 @@
 import unittest
 import xml.etree.ElementTree as ET
-from Components.OgreBoneTreeProvider import OgreBoneTreeProvider
-from DTO.OgreSkeleton import OgreSkeletonFromXml
+from io_Torchlight.Components.OgreBoneTreeProvider import OgreBoneTreeProvider
+from io_Torchlight.DTO.OgreSkeleton import OgreSkeletonFromXml
 
 
 class OgreBoneTreeTests(unittest.TestCase):
     def setUp(self):
-        xml = ET.parse('Tests\Vanquisher.skeleton.xml')
+        testFile = 'io_Torchlight\Tests\Vanquisher.skeleton.xml'
+        xml = ET.parse(testFile)
         self.XmlRoot = xml.getroot()
 
     def test_CanCreate(self):
