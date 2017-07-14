@@ -16,6 +16,24 @@
 #
 # ======================= END GPL LICENSE BLOCK ========================#
 
+if "bpy" in locals():
+    import importlib
+    if "XmlToOgreSkeletonTests" in locals():
+        importlib.reload(Tests.XmlToOgreSkeletonTests)
+        print("found xmltoorgretests")
+    else:
+        print("did not find xmltoogretests")
+    if "OgreBoneTreeTests" in locals():
+        importlib.reload(Tests.OgreBoneTreeTests)
+
+import bpy
+import unittest
+from io_Torchlight.Tests import XmlToOgreSkeletonTests
+from io_Torchlight.Tests import OgreBoneTreeTests 
+from io_Torchlight.Tests.XmlToOgreSkeletonTests import XmlToOgreSkeletonTests
+from io_Torchlight.Tests.OgreBoneTreeTests import OgreBoneTreeTests
+
+
 bl_info = {
     "name": "Torchlight2 Ogre3d format",
     "version": (0, 1),
@@ -31,10 +49,9 @@ bl_info = {
     "support": 'OFFICIAL',
     "category": "Import-Export"}
 
-if "bpy" in locals():
-    import importlib
-    importlib.reload(DTO)
-    importlib.reload(Components)
-    importlib.reload(Tests)
 
-import bpy
+if __name__ == '__main__':
+    try:
+        unittest.main()
+    except SystemExit:
+        pass

@@ -14,3 +14,5 @@ def OgreAxisFromXml(xml):
     x = float(xml.get('x'))
     y = float(xml.get('y'))
     z = float(xml.get('z'))
+
+    return OgreAxis(x, y, z)
