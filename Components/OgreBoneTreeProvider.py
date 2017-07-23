@@ -1,4 +1,10 @@
-from DTO.OgreBoneTree import OgreBoneTree
+if "bpy" in locals():
+    import importlib
+    if "OgreBoneTree" in locals():
+        importlib.reload(OgreBoneTree)
+
+
+from io_Torchlight.DTO.OgreBoneTree import OgreBoneTree
 
 
 class OgreBoneTreeProvider:
