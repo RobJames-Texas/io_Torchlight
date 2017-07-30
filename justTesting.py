@@ -37,13 +37,15 @@ TO_BLE_MATRIX = mathutils.Matrix([
     [0.0, 1.0, 0.0, 0.0],
     [0.0, 0.0, 0.0, 1.0]])
 
-def convertBranch(branch, amt, parent):
+def convertBranch(branch, amt, parent, prot):
     leaf = branch.OgreBone
     bone = amt.edit_bones.new(leaf.Name)
     loc = Vector((leaf.Position.X, leaf.Position.Y, leaf.Position.Z))
     axis = Vector((leaf.Rotation.Axis.X, leaf.Rotation.Axis.Y, leaf.Rotation.Axis.Z))
-    rotmat = mathutils.Matrix.Rotation(leaf.Rotation.Angle, 4, axis)
-    
+    rotmat = mathutils.Matrix.Rotation(leaf.Rotation.Angle, 3, axis).inverted()
+    #mat_trans = mathutils.Matrix.Translation(loc)
+    #mat = mat_trans * rotmat    
+
     if parent:
         pLoc = parent.head
         amt.edit_bones[leaf.Name].parent = amt.edit_bones[ parent.name ]
@@ -51,14 +53,17 @@ def convertBranch(branch, amt, parent):
         pLoc = Vector((0,0,0))
     
     #fLoc = ((loc * rotmat) + pLoc) * TO_BLE_MATRIX
-    fLoc = ((loc * rotmat) * TO_BLE_MATRIX) + pLoc
+    #fLoc = ((loc * rotmat) * TO_BLE_MATRIX) - pLoc
+    newpos = prot.transposed() * loc
+    
+    fLoc = pLoc + newpos
     
     bone.head = fLoc
     #bone.tail = Vector((0,0,1))
-    bone.tail = bone.head + Vector((0,.2,0))
+    bone.tail = bone.head + (Vector((0,.2,0)) * rotmat)
     
     for childBranch in branch.Children:
-        convertBranch(childBranch, amt, bone)
+        convertBranch(childBranch, amt, bone, rotmat)
 
 if __name__ == '__main__':
     testFile = 'c:\\tmp\\Vanquisher.skeleton.xml'
@@ -111,4 +116,4 @@ if __name__ == '__main__':
         childRotMat2 = mathutils.Matrix.Rotation(childLeaf2.Rotation.Angle, 4, childAxis2)
         childBone2.tail = childRotMat2 * Vector((0,0,1)) + childBone2.head
     else:
-        convertBranch(tree, amt, False)
+        convertBranch(tree, amt, False, TO_BLE_MATRIX)
