@@ -37,12 +37,18 @@ TO_BLE_MATRIX = mathutils.Matrix([
     [0.0, 1.0, 0.0, 0.0],
     [0.0, 0.0, 0.0, 1.0]])
 
+TO_ZERO_MATRIX = mathutils.Matrix([
+    [0.0, 0.0, 0.0, 0.0],
+    [0.0, 0.0, 0.0, 0.0],
+    [0.0, 0.0, 0.0, 0.0],
+    [0.0, 0.0, 0.0, 0.0]])
+
 def convertBranch(branch, amt, parent, prot):
     leaf = branch.OgreBone
     bone = amt.edit_bones.new(leaf.Name)
     loc = Vector((leaf.Position.X, leaf.Position.Y, leaf.Position.Z))
     axis = Vector((leaf.Rotation.Axis.X, leaf.Rotation.Axis.Y, leaf.Rotation.Axis.Z))
-    rotmat = mathutils.Matrix.Rotation(leaf.Rotation.Angle, 3, axis).inverted()
+    rotmat = mathutils.Matrix.Rotation(leaf.Rotation.Angle, 4, axis).inverted()
     #mat_trans = mathutils.Matrix.Translation(loc)
     #mat = mat_trans * rotmat    
 
@@ -116,4 +122,4 @@ if __name__ == '__main__':
         childRotMat2 = mathutils.Matrix.Rotation(childLeaf2.Rotation.Angle, 4, childAxis2)
         childBone2.tail = childRotMat2 * Vector((0,0,1)) + childBone2.head
     else:
-        convertBranch(tree, amt, False, TO_BLE_MATRIX)
+        convertBranch(tree, amt, False, TO_ZERO_MATRIX)
